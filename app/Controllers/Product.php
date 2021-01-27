@@ -1,125 +1,117 @@
-<?php 
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
 
-class Product extends CI_Controller {
-	
-	public function __construct()
-	{
-		parent::__construct();
-		is_admin();
-		$this->load->model('product_model', 'product');
-	}
-	
-	public function index()
-	{
-		$data['title']		= 'Products';
-		$data['product']	= $this->product->getAllProduct();
-		$data['page']		= 'pages/product/index';
+declare(strict_types=1);
 
-		$this->load->view('layouts/app', $data);
-	}
+defined('BASEPATH') or exit('No direct script access allowed');
 
-	public function add()
-	{
-		$this->form_validation->set_rules('name', 'Game name', 'required',[
-			'required' => 'Game name is required.',
-		]);
-		$this->form_validation->set_rules('price', 'Price', 'required|numeric',[
-			'required' => 'Price is required.',
-			'numeric'  => 'Price must number.'
-		]);
-		$this->form_validation->set_rules('description', 'Description', 'required',[
-			'required' => 'Description is required.',
-		]);
-		$this->form_validation->set_rules('requirements', 'System requriements', 'required',[
-			'required' => 'System requriements is required.',
-		]);
+class Product extends CI_Controller
+{
+    public function __construct()
+    {
+        parent::__construct();
+        is_admin();
+        $this->load->model('product_model', 'product');
+    }
 
-		if($this->form_validation->run() == false) {
-			$data['title']	= 'Add Game';
-			$data['page']	= 'pages/product/add';
-			$this->load->view('layouts/app', $data);
-		}else {
-			$data = [
-				'name'			=> $this->input->post('name'),
-				'price'			=> $this->input->post('price'),
-				'edition'		=> $this->input->post('edition'),
-				'description'	=> $this->input->post('description'),
-				'requirements'	=> $this->input->post('requirements'),
-			];
+    public function index(): void
+    {
+        $data['title']      = 'Products';
+        $data['product']    = $this->product->getAllProduct();
+        $data['page']       = 'pages/product/index';
 
-			if(!empty($_FILES['image']['name'])){
-				$upload = $this->product->uploadImage();	
-				$data['image'] = $upload;
-			}
+        $this->load->view('layouts/app', $data);
+    }
 
-			$this->product->insertProduct($data);
-			$this->session->set_flashdata('success', 'Game succesfully added.');
+    public function add(): void
+    {
+        $this->form_validation->set_rules('name', 'Game name', 'required', ['required' => 'Game name is required.']);
+        $this->form_validation->set_rules('price', 'Price', 'required|numeric', [
+            'required' => 'Price is required.',
+            'numeric'  => 'Price must number.',
+        ]);
+        $this->form_validation->set_rules('description', 'Description', 'required', ['required' => 'Description is required.']);
+        $this->form_validation->set_rules('requirements', 'System requriements', 'required', ['required' => 'System requriements is required.']);
 
-			redirect(base_url('product'));
-		}
-	}
+        if ($this->form_validation->run() == false) {
+            $data['title']  = 'Add Game';
+            $data['page']   = 'pages/product/add';
+            $this->load->view('layouts/app', $data);
+        } else {
+            $data = [
+                'name'          => $this->input->post('name'),
+                'price'         => $this->input->post('price'),
+                'edition'       => $this->input->post('edition'),
+                'description'   => $this->input->post('description'),
+                'requirements'  => $this->input->post('requirements'),
+            ];
 
-	public function edit($id) {
-		$this->form_validation->set_rules('name', 'Game name', 'required',[
-			'required' => 'Game name is required.',
-		]);
-		$this->form_validation->set_rules('price', 'Price', 'required|numeric',[
-			'required' => 'Price is required.',
-			'numeric'  => 'Price must number.'
-		]);
-		$this->form_validation->set_rules('description', 'Description', 'required',[
-			'required' => 'Description is required.',
-		]);
-		$this->form_validation->set_rules('requirements', 'System requriements', 'required',[
-			'required' => 'System requriements is required.',
-		]);
+            if (! empty($_FILES['image']['name'])) {
+                $upload = $this->product->uploadImage();
+                $data['image'] = $upload;
+            }
 
-		if($this->form_validation->run() == false) {
-			$data['title']		= 'Update Game';
-			$data['page']		= 'pages/product/edit';
-			$data['product']	= $this->product->getProduct($id);
-			$this->load->view('layouts/app', $data);
-		}else {
-			$id = $this->input->post('id');
-			$data = [
-				'name'			=> $this->input->post('name'),
-				'price'			=> $this->input->post('price'),
-				'edition'		=> $this->input->post('edition'),
-				'description'	=> $this->input->post('description'),
-				'requirements'	=> $this->input->post('requirements'),
-			];
+            $this->product->insertProduct($data);
+            $this->session->set_flashdata('success', 'Game succesfully added.');
 
-			if(!empty($_FILES['image']['name'])){
-				$upload 	 = $this->product->uploadImage();
-				if($upload){
-					$productImage = $this->product->getProduct($id);
-					if(file_exists('images/game/' . $productImage['image']) && $productImage['image']){
-						unlink('images/game/' . $productImage['image']);
-					}
-					
-					$data['image'] = $upload;
-				}else{
-					redirect(base_url('product/edit'));
-				}
-			}
+            redirect(base_url('product'));
+        }
+    }
 
-			$this->product->updateProduct($id, $data);
-			$this->session->set_flashdata('success', 'Game succesfully updated.');
+    public function edit($id): void
+    {
+        $this->form_validation->set_rules('name', 'Game name', 'required', ['required' => 'Game name is required.']);
+        $this->form_validation->set_rules('price', 'Price', 'required|numeric', [
+            'required' => 'Price is required.',
+            'numeric'  => 'Price must number.',
+        ]);
+        $this->form_validation->set_rules('description', 'Description', 'required', ['required' => 'Description is required.']);
+        $this->form_validation->set_rules('requirements', 'System requriements', 'required', ['required' => 'System requriements is required.']);
 
-			redirect(base_url('product'));
-		}
-	}
+        if ($this->form_validation->run() == false) {
+            $data['title']      = 'Update Game';
+            $data['page']       = 'pages/product/edit';
+            $data['product']    = $this->product->getProduct($id);
+            $this->load->view('layouts/app', $data);
+        } else {
+            $id = $this->input->post('id');
+            $data = [
+                'name'          => $this->input->post('name'),
+                'price'         => $this->input->post('price'),
+                'edition'       => $this->input->post('edition'),
+                'description'   => $this->input->post('description'),
+                'requirements'  => $this->input->post('requirements'),
+            ];
 
-	public function delete($id) {
-		$produk = $this->product->getProduct(($id));
-		unlink('images/game/' . $produk['image']);
-		$this->product->deleteProduct($id);
-		$this->session->set_flashdata('success', 'Game succesfully deleted.');
+            if (! empty($_FILES['image']['name'])) {
+                $upload = $this->product->uploadImage();
+                if ($upload) {
+                    $productImage = $this->product->getProduct($id);
+                    if (file_exists('images/game/' . $productImage['image']) && $productImage['image']) {
+                        unlink('images/game/' . $productImage['image']);
+                    }
 
-		redirect(base_url('product'));
-	}
+                    $data['image'] = $upload;
+                } else {
+                    redirect(base_url('product/edit'));
+                }
+            }
 
+            $this->product->updateProduct($id, $data);
+            $this->session->set_flashdata('success', 'Game succesfully updated.');
+
+            redirect(base_url('product'));
+        }
+    }
+
+    public function delete($id): void
+    {
+        $produk = $this->product->getProduct($id);
+        unlink('images/game/' . $produk['image']);
+        $this->product->deleteProduct($id);
+        $this->session->set_flashdata('success', 'Game succesfully deleted.');
+
+        redirect(base_url('product'));
+    }
 }
 
 /* End of file Product.php */

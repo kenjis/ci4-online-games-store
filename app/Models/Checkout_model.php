@@ -1,47 +1,52 @@
-<?php 
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
 
-class Checkout_model extends CI_Model {
+declare(strict_types=1);
 
-	public function getCart($id)
-	{
-		$this->db->select('cart.id, cart.subtotal,
+defined('BASEPATH') or exit('No direct script access allowed');
+
+class Checkout_model extends CI_Model
+{
+    public function getCart($id)
+    {
+        $this->db->select('cart.id, cart.subtotal,
 		products.name, products.image, products.price');
-		$this->db->from('cart');
-		$this->db->join('products', 'cart.product_id = products.id');
-		$this->db->where('cart.user_id', $id);
-		return $this->db->get()->result_array();
-	}
+        $this->db->from('cart');
+        $this->db->join('products', 'cart.product_id = products.id');
+        $this->db->where('cart.user_id', $id);
 
-	public function total($id) 
-	{
-		$this->db->select_sum('subtotal');
-		$this->db->from('cart');
-		$this->db->where('user_id', $id);
-		return $this->db->get()->row()->subtotal;;
-	}
+        return $this->db->get()->result_array();
+    }
 
-	public function insertOrder($data) 
-	{
-		$this->db->insert('orders', $data);
-		return $this->db->insert_id();
-	}
+    public function total($id)
+    {
+        $this->db->select_sum('subtotal');
+        $this->db->from('cart');
+        $this->db->where('user_id', $id);
 
-	public function getCartByIdUser($id) 
-	{
-		return $this->db->get_where('cart', ['user_id' => $id])->result_array();
-	}
+        return $this->db->get()->row()->subtotal;
+    }
 
-	public function insertOrdersDetail($data) 
-	{
-		$this->db->insert('orders_detail', $data);
-	}
+    public function insertOrder($data)
+    {
+        $this->db->insert('orders', $data);
 
-	public function deleteCart($id)
-	{
-		$this->db->delete('cart',['user_id' => $id]);
-	}
+        return $this->db->insert_id();
+    }
 
+    public function getCartByIdUser($id)
+    {
+        return $this->db->get_where('cart', ['user_id' => $id])->result_array();
+    }
+
+    public function insertOrdersDetail($data): void
+    {
+        $this->db->insert('orders_detail', $data);
+    }
+
+    public function deleteCart($id): void
+    {
+        $this->db->delete('cart', ['user_id' => $id]);
+    }
 }
 
 /* End of file Checkout.php */

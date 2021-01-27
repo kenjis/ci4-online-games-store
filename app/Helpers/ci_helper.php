@@ -1,42 +1,48 @@
 <?php
 
-function is_login(){
-	$CI =& get_instance();
-	
-	if($CI->session->userdata('login') == FALSE){
-		$CI->session->set_flashdata('error', 'Please sign in.');
-		redirect('login');
-	}
-}
-	
-function is_admin()
+declare(strict_types=1);
+
+function is_login(): void
 {
-	$CI =& get_instance();
+    $CI =& get_instance();
 
-	is_login();
-	
-	if($CI->session->userdata('role') != 1){
-		redirect('errors');
-	}
+    if ($CI->session->userdata('login') != false) {
+        return;
+    }
+
+    $CI->session->set_flashdata('error', 'Please sign in.');
+    redirect('login');
 }
 
-function hashEncrypt($input){
+function is_admin(): void
+{
+    $CI =& get_instance();
 
-	$hash = password_hash($input, PASSWORD_DEFAULT);
-	
-	return $hash;
-}
-	
-function hashEncryptVerify($input, $hash){
-	
-	if(password_verify($input, $hash)){
-	  return true;
-	}else{
-	  return false;
-	}
+    is_login();
+
+    if ($CI->session->userdata('role') == 1) {
+        return;
+    }
+
+    redirect('errors');
 }
 
-function dd($input) {
-	var_dump($input);
-	die;
+function hashEncrypt($input)
+{
+    return password_hash($input, PASSWORD_DEFAULT);
+}
+
+function hashEncryptVerify($input, $hash)
+{
+    if (password_verify($input, $hash)) {
+        return true;
+    }
+
+    return false;
+}
+
+function dd($input): void
+{
+    var_dump($input);
+    die;
 }
