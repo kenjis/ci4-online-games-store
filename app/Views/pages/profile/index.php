@@ -14,14 +14,14 @@
 					<label class="col-sm-2 col-form-label">Name</label>
 					<div class="col-sm-10">
 						<input type="text" class="form-control" name="name" value="<?= $profile['name'] ?>">
-						<?= form_error('name', '<small class="form-text ml-2 mt-1 text-danger">', '</small>') ?>
+						<?= form_error('name') ?>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-sm-2 col-form-label">Email</label>
 					<div class="col-sm-10">
 						<input type="email" class="form-control" name="email" value="<?= $profile['email'] ?>">
-						<?= form_error('email', '<small class="form-text ml-2 mt-1 text-danger">', '</small>') ?>
+						<?= form_error('email') ?>
 					</div>
 				</div>
 

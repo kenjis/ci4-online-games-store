@@ -16,17 +16,17 @@
 						<div class="form-group">
 							<label>Account Name</label>
 							<input type="text" class="form-control" name="account_name">
-							<?= form_error('account_name', '<small class="form-text text-danger">', '</small>') ?>
+							<?= form_error('account_name') ?>
 						</div>
 						<div class="form-group">
 							<label>Account Number</label>
 							<input type="text" class="form-control" name="account_number">
-							<?= form_error('account_number', '<small class="form-text text-danger">', '</small>') ?>
+							<?= form_error('account_number') ?>
 						</div>
 						<div class="form-group">
 							<label>Nominal</label>
 							<input type="text" class="form-control" name="nominal">
-							<?= form_error('nominal', '<small class="form-text text-danger">', '</small>') ?>
+							<?= form_error('nominal') ?>
 						</div>
 						<div class="form-group">
 							<label>Note</label>

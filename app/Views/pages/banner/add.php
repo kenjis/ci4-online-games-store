@@ -13,14 +13,14 @@
 					<label class="col-sm-2 col-form-label font-weight-bold">Head Banner</label>
 					<div class="col-sm-10">
 						<input type="text" class="form-control" name="head">
-						<?= form_error('head', '<small class="form-text text-danger">', '</small>') ?>
+						<?= form_error('head') ?>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-sm-2 col-form-label font-weight-bold">Content Banner</label>
 					<div class="col-sm-10">
 						<input type="text" class="form-control" name="content">
-						<?= form_error('content', '<small class="form-text text-danger">', '</small>') ?>
+						<?= form_error('content') ?>
 					</div>
 				</div>
 				<div class="form-group row">

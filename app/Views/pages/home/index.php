@@ -5,7 +5,7 @@
 		<?php foreach($banners as $b) : ?>
 			<?php $no++;  ?>
 			<div class="carousel-item <?php if($no <= 1) { echo "active"; } ?>">
-				<img src="<?= base_url() ?>images/banner/<?= $b['image'] ?>" class="d-block w-100">
+				<img src="<?= base_url() ?>/images/banner/<?= $b['image'] ?>" class="d-block w-100">
 				<div class="carousel-caption d-none d-md-block  <?= $b['text_color'] ?>">
 					<h3 class="text-uppercase"><?= $b['head'] ?></h3>
 					<h5 class="mt-3"> <?= $b['content'] ?></h5>

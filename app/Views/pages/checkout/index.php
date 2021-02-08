@@ -9,17 +9,17 @@
 						<div class="form-group">
 							<label>Recipient's name</label>
 							<input type="text" class="form-control" name="name">
-							<?= form_error('name', '<small class="text-danger mt-1">', '</small>'); ?>
+							<?= form_error('name'); ?>
 						</div>
 						<div class="form-group">
 							<label>Complete Address</label>
 							<textarea class="form-control" name="address" rows="5"></textarea>
-							<?= form_error('address', '<small class="text-danger mt-1">', '</small>'); ?>
+							<?= form_error('address'); ?>
 						</div>
 						<div class="form-group">
 							<label>Mobile Phone Number</label>
 							<input type="number" class="form-control" name="phone">
-							<?= form_error('phone', '<small class="text-danger mt-1">', '</small>'); ?>
+							<?= form_error('phone'); ?>
 						</div>
 						<button type="submit" class="btn btn-info">Save</button>
 					</form>

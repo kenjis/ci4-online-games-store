@@ -14,7 +14,7 @@
 					<label for="name" class="col-sm-2 col-form-label font-weight-bold">Game Name</label>
 					<div class="col-sm-10">
 						<input type="text" class="form-control" name="name" value="<?= $product['name'] ?>">
-						<?= form_error('name', '<small class="form-text text-danger">', '</small>') ?>
+						<?= form_error('name') ?>
 					</div>
 				</div> 
 				<div class="row">
@@ -22,7 +22,7 @@
 						<div class="form-group">
 							<label class="font-weight-bold">Price</label>
 							<input type="number" class="form-control" name="price" value="<?= $product['price'] ?>">
-							<?= form_error('price', '<small class="form-text text-danger">', '</small>') ?>
+							<?= form_error('price') ?>
 						</div>
 					</div>
 					<div class="col-5">
@@ -41,7 +41,7 @@
 						<textarea class="form-control" id="summernote" name="description" rows="3">
 							<?= $product['description'] ?>
 						</textarea>
-						<?= form_error('description', '<small class="form-text text-danger">', '</small>') ?>
+						<?= form_error('description') ?>
 					</div>
 				</div>	
 				<div class="form-group row">
@@ -50,7 +50,7 @@
 						<textarea class="form-control" id="summernote2" name="requirements" rows="3">
 							<?= $product['requirements'] ?>
 						</textarea>
-						<?= form_error('requirements', '<small class="form-text text-danger">', '</small>') ?>
+						<?= form_error('requirements') ?>
 					</div>
 				</div>
 				<div class="form-group row">
