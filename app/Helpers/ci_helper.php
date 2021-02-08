@@ -11,7 +11,7 @@ function is_login(): void
     }
 
     $CI->session->set_flashdata('error', 'Please sign in.');
-    redirect('login');
+    redirect_('login');
 }
 
 function is_admin(): void
@@ -24,7 +24,7 @@ function is_admin(): void
         return;
     }
 
-    redirect('errors');
+    redirect_('errors');
 }
 
 function hashEncrypt($input)
@@ -41,8 +41,8 @@ function hashEncryptVerify($input, $hash)
     return false;
 }
 
-function dd($input): void
-{
-    var_dump($input);
-    die;
-}
+//function dd($input): void
+//{
+//    var_dump($input);
+//    die;
+//}
