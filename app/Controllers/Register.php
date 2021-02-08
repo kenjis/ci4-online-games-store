@@ -2,8 +2,20 @@
 
 declare(strict_types=1);
 
-defined('BASEPATH') or exit('No direct script access allowed');
+namespace App\Controllers;
 
+use App\Models\Register_model;
+use Kenjis\CI3Compatible\Core\CI_Controller;
+use Kenjis\CI3Compatible\Core\CI_Input;
+use Kenjis\CI3Compatible\Library\CI_Form_validation;
+use Kenjis\CI3Compatible\Library\CI_Session;
+
+/**
+ * @property Register_model $register
+ * @property CI_Form_validation $form_validation
+ * @property CI_Input $input
+ * @property CI_Session $session
+ */
 class Register extends CI_Controller
 {
     public function __construct()
@@ -46,7 +58,7 @@ class Register extends CI_Controller
             $this->register->register($data);
             $this->session->set_flashdata('success', 'Successfully registered, please login.');
 
-            redirect(base_url('login'));
+            redirect_('login');
         }
     }
 }

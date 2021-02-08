@@ -2,8 +2,20 @@
 
 declare(strict_types=1);
 
-defined('BASEPATH') or exit('No direct script access allowed');
+namespace App\Controllers;
 
+use App\Models\Login_model;
+use Kenjis\CI3Compatible\Core\CI_Controller;
+use Kenjis\CI3Compatible\Core\CI_Input;
+use Kenjis\CI3Compatible\Library\CI_Form_validation;
+use Kenjis\CI3Compatible\Library\CI_Session;
+
+/**
+ * @property Login_model $login
+ * @property CI_Form_validation $form_validation
+ * @property CI_Session $session
+ * @property CI_Input $input
+ */
 class Login extends CI_Controller
 {
     public function __construct()
@@ -40,16 +52,16 @@ class Login extends CI_Controller
                     $this->session->set_userdata($user);
                     $this->session->set_userdata('login', true);
 
-                    redirect(base_url('home'));
+                    redirect_('home');
                 } else {
                     // Jika password salah
                     $this->session->set_flashdata('error', 'Wrong email or password.');
-                    redirect('login');
+                    redirect_('login');
                 }
             } else {
                 // Jika email tidak sesuai
                 $this->session->set_flashdata('error', 'Wrong email or password.');
-                redirect('login');
+                redirect_('login');
             }
         }
     }

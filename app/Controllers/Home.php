@@ -2,8 +2,14 @@
 
 declare(strict_types=1);
 
-defined('BASEPATH') or exit('No direct script access allowed');
+namespace App\Controllers;
 
+use App\Models\Home_model;
+use Kenjis\CI3Compatible\Core\CI_Controller;
+
+/**
+ * @property Home_model $home
+ */
 class Home extends CI_Controller
 {
     public function __construct()

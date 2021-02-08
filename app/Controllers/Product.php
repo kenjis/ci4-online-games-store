@@ -2,8 +2,23 @@
 
 declare(strict_types=1);
 
-defined('BASEPATH') or exit('No direct script access allowed');
+namespace App\Controllers;
 
+use App\Models\Product_model;
+use Kenjis\CI3Compatible\Core\CI_Controller;
+use Kenjis\CI3Compatible\Core\CI_Input;
+use Kenjis\CI3Compatible\Library\CI_Form_validation;
+use Kenjis\CI3Compatible\Library\CI_Session;
+
+use function file_exists;
+use function unlink;
+
+/**
+ * @property Product_model $product
+ * @property CI_Form_validation $form_validation
+ * @property CI_Session $session
+ * @property CI_Input $input
+ */
 class Product extends CI_Controller
 {
     public function __construct()
@@ -53,11 +68,11 @@ class Product extends CI_Controller
             $this->product->insertProduct($data);
             $this->session->set_flashdata('success', 'Game succesfully added.');
 
-            redirect(base_url('product'));
+            redirect_('product');
         }
     }
 
-    public function edit($id): void
+    public function edit($id)
     {
         $this->form_validation->set_rules('name', 'Game name', 'required', ['required' => 'Game name is required.']);
         $this->form_validation->set_rules('price', 'Price', 'required|numeric', [
@@ -92,14 +107,15 @@ class Product extends CI_Controller
 
                     $data['image'] = $upload;
                 } else {
-                    redirect(base_url('product/edit'));
+                    redirect_('product/edit');
                 }
             }
 
             $this->product->updateProduct($id, $data);
             $this->session->set_flashdata('success', 'Game succesfully updated.');
 
-            redirect(base_url('product'));
+//            redirect_('product');
+            return redirect()->to('/product');
         }
     }
 
@@ -110,7 +126,7 @@ class Product extends CI_Controller
         $this->product->deleteProduct($id);
         $this->session->set_flashdata('success', 'Game succesfully deleted.');
 
-        redirect(base_url('product'));
+        redirect_('product');
     }
 }
 

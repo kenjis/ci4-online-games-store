@@ -2,8 +2,23 @@
 
 declare(strict_types=1);
 
-defined('BASEPATH') or exit('No direct script access allowed');
+namespace App\Controllers;
 
+use App\Models\Banner_model;
+use Kenjis\CI3Compatible\Core\CI_Controller;
+use Kenjis\CI3Compatible\Core\CI_Input;
+use Kenjis\CI3Compatible\Library\CI_Form_validation;
+use Kenjis\CI3Compatible\Library\CI_Session;
+
+use function file_exists;
+use function unlink;
+
+/**
+ * @property Banner_model $banner
+ * @property CI_Form_validation $form_validation
+ * @property CI_Input $input
+ * @property CI_Session $session
+ */
 class Banner extends CI_Controller
 {
     public function __construct()
@@ -47,7 +62,7 @@ class Banner extends CI_Controller
             $this->banner->insertBanner($data);
             $this->session->set_flashdata('success', 'Banner succesfully added.');
 
-            redirect(base_url('banner'));
+            redirect_('banner');
         }
     }
 
@@ -81,14 +96,14 @@ class Banner extends CI_Controller
 
                     $data['image'] = $upload;
                 } else {
-                    redirect(base_url('banner/edit'));
+                    redirect_('banner/edit');
                 }
             }
 
             $this->banner->updateBanner($id, $data);
             $this->session->set_flashdata('success', 'Banner succesfully updated.');
 
-            redirect(base_url('banner'));
+            redirect_('banner');
         }
     }
 
@@ -99,7 +114,7 @@ class Banner extends CI_Controller
         $this->banner->deleteBanner($id);
         $this->session->set_flashdata('success', 'Banner succesfully deleted.');
 
-        redirect(base_url('banner'));
+        redirect_('banner');
     }
 }
 

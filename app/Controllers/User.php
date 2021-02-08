@@ -2,8 +2,16 @@
 
 declare(strict_types=1);
 
-defined('BASEPATH') or exit('No direct script access allowed');
+namespace App\Controllers;
 
+use App\Models\User_model;
+use Kenjis\CI3Compatible\Core\CI_Controller;
+use Kenjis\CI3Compatible\Library\CI_Session;
+
+/**
+ * @property User_model $user
+ * @property CI_Session $session
+ */
 class User extends CI_Controller
 {
     public function __construct()
@@ -25,7 +33,7 @@ class User extends CI_Controller
     {
         $this->user->deleteUser($id);
         $this->session->set_flashdata('success', 'User succesfully deleted.');
-        redirect(base_url('user'));
+        redirect_('user');
     }
 }
 

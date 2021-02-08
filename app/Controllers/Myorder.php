@@ -2,8 +2,20 @@
 
 declare(strict_types=1);
 
-defined('BASEPATH') or exit('No direct script access allowed');
+namespace App\Controllers;
 
+use App\Models\Myorder_model;
+use Kenjis\CI3Compatible\Core\CI_Controller;
+use Kenjis\CI3Compatible\Core\CI_Input;
+use Kenjis\CI3Compatible\Library\CI_Form_validation;
+use Kenjis\CI3Compatible\Library\CI_Session;
+
+/**
+ * @property Myorder_model $myorder
+ * @property CI_Form_validation $form_validation
+ * @property CI_Session $session
+ * @property CI_Input $input
+ */
 class Myorder extends CI_Controller
 {
     private $id;
@@ -71,7 +83,7 @@ class Myorder extends CI_Controller
                 $this->myorder->updateStatus($data['orders_id']);
                 $this->session->set_flashdata('success', 'Data saved successfully !.');
 
-                redirect(base_url('myorder'));
+                redirect_('myorder');
             }
         // Jika belum ada data terkirim / pertama kali halaman di load
         } else {

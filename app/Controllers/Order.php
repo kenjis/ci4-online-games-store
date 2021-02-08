@@ -2,8 +2,18 @@
 
 declare(strict_types=1);
 
-defined('BASEPATH') or exit('No direct script access allowed');
+namespace App\Controllers;
 
+use App\Models\Order_model;
+use Kenjis\CI3Compatible\Core\CI_Controller;
+use Kenjis\CI3Compatible\Core\CI_Input;
+use Kenjis\CI3Compatible\Library\CI_Session;
+
+/**
+ * @property Order_model $order
+ * @property CI_Session $session
+ * @property CI_Input $input
+ */
 class Order extends CI_Controller
 {
     public function __construct()
@@ -41,7 +51,7 @@ class Order extends CI_Controller
         $this->order->updateStatus($id, $data);
         $this->session->set_flashdata('success', 'Data updated successfully.');
 
-        redirect(base_url("order/detail/$id"));
+        redirect_("order/detail/$id");
     }
 }
 

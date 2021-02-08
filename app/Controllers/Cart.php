@@ -2,8 +2,18 @@
 
 declare(strict_types=1);
 
-defined('BASEPATH') or exit('No direct script access allowed');
+namespace App\Controllers;
 
+use App\Models\Cart_model;
+use Kenjis\CI3Compatible\Core\CI_Controller;
+use Kenjis\CI3Compatible\Core\CI_Input;
+use Kenjis\CI3Compatible\Library\CI_Session;
+
+/**
+ * @property Cart_model $cart
+ * @property CI_Session $session
+ * @property CI_Input $input
+ */
 class Cart extends CI_Controller
 {
     public function __construct()
@@ -35,14 +45,14 @@ class Cart extends CI_Controller
 
         $this->cart->addToCart($data);
         $this->session->set_flashdata('success', 'Successfully added to your cart.');
-        redirect(base_url('home/detail/' . $product_id));
+        redirect_('home/detail/' . $product_id);
     }
 
     public function delete($id): void
     {
         $this->cart->deleteCart($id);
         $this->session->set_flashdata('success', 'Successfully deleted product in your cart.');
-        redirect(base_url('cart'));
+        redirect_('cart');
     }
 }
 

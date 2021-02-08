@@ -21,13 +21,28 @@ use Psr\Log\LoggerInterface;
 class BaseController extends Controller
 {
     /**
+     * CI3's $autoload['libraries']
+     *
+     * @var array
+     */
+    protected $libraries = [
+        'database',
+        'session',
+        'form_validation',
+    ];
+
+    /**
      * An array of helpers to be loaded automatically upon
      * class instantiation. These helpers will be available
      * to all other controllers that extend BaseController.
      *
      * @var array<string>
      */
-    protected $helpers = [];
+    protected $helpers = [
+        'url',
+        'ci_helper',
+        'text',
+    ];
 
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger): void
     {

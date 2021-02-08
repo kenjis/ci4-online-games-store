@@ -2,8 +2,19 @@
 
 declare(strict_types=1);
 
-defined('BASEPATH') or exit('No direct script access allowed');
+namespace App\Controllers;
 
+use Kenjis\CI3Compatible\Core\CI_Controller;
+use Kenjis\CI3Compatible\Core\CI_Input;
+use Kenjis\CI3Compatible\Library\CI_Form_validation;
+use Kenjis\CI3Compatible\Library\CI_Session;
+
+/**
+ * @property Profile_model profile
+ * @property CI_Session $session
+ * @property CI_Form_validation $form_validation
+ * @property CI_Input $input
+ */
 class Profile extends CI_Controller
 {
     public function __construct()
@@ -47,7 +58,7 @@ class Profile extends CI_Controller
             $this->profile->updateProfile($id, $data);
             $this->session->set_flashdata('success', 'Biodata Successfully Updated. Please log in again to update profile.');
 
-            redirect(base_url('profile'));
+            redirect_('profile');
         }
     }
 
@@ -73,7 +84,7 @@ class Profile extends CI_Controller
             $this->profile->updatePassword($id, $data);
             $this->session->set_flashdata('success', 'Password successfully updated.');
 
-            redirect(base_url('profile/password'));
+            redirect_('profile/password');
         }
     }
 }
